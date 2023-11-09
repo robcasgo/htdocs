@@ -20,7 +20,7 @@
         </br>
         <input type="submit" value="Iniciar sesión">
     </form>
-    <a href="registro.php">No tienes usuario?</a>
+    <a href="login.php">Ya tienes usuario?</a>
 </body>
 
 </html>
