@@ -13,12 +13,14 @@
     https://parzibyte.me/blog/2019/01/22/ejemplo-simple-login-php/
     -->
     <h1>INICIA SESION</h1>
-    <form action="validarlogin.php" method="post">
+    <form action="validarregistro.php" method="post">
         <input name="usuario" type="text" placeholder="Usuario">
         </br>
-        <input name="contraseña" type="password" placeholder="Contraseña">
+        <input name="contraseña1" type="password" placeholder="Contraseña">
         </br>
-        <input type="submit" value="Iniciar sesión">
+        <input name="contraseña2" type="password" placeholder="Confirmar contraseña">
+        </br>
+        <input type="submit" value="Registrarme">
     </form>
     <a href="login.php">Ya tienes usuario?</a>
 </body>
