@@ -14,9 +14,9 @@
     -->
     <h1>INICIA SESION</h1>
     <form action="validarlogin.php" method="post">
-        <input name="usuario" type="text" placeholder="Usuario">
+        <input name="username" type="text" placeholder="Usuario">
         </br>
-        <input name="contraseña" type="password" placeholder="Contraseña">
+        <input name="password" type="password" placeholder="Contraseña">
         </br>
         <input type="submit" value="Iniciar sesión">
     </form>
