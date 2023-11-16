@@ -19,7 +19,7 @@ $result = $conn->query($sql);
 //recorro el array
 $row = mysqli_fetch_assoc($result);
 
-if ($row["role"] = "admin") {
+if ($row["role"] == "admin") {
     //comprobamos que sean iguales las contraseñas
     if ($row["password"] != $password) {
         header("Location: login.php");
@@ -29,7 +29,7 @@ if ($row["role"] = "admin") {
 } else {
     //comprobamos que sean iguales las contraseñas
     if ($row["password"] != $password) {
-        header("Location: login.php");
+        header("Location: login.php");        
     } else {
         header("Location: userpage.php");
     }

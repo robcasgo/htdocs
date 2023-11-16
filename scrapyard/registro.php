@@ -14,11 +14,11 @@
     -->
     <h1>INICIA SESION</h1>
     <form action="validarregistro.php" method="post">
-        <input name="usuario" type="text" placeholder="Usuario">
+        <input name="username" type="text" placeholder="Usuario">
         </br>
-        <input name="contraseña1" type="password" placeholder="Contraseña">
+        <input name="password" type="password" placeholder="Contraseña">
         </br>
-        <input name="contraseña2" type="password" placeholder="Confirmar contraseña">
+        <input name="password2" type="password" placeholder="Confirmar contraseña">
         </br>
         <input type="submit" value="Registrarme">
     </form>

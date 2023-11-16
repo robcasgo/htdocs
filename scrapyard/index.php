@@ -1,18 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+    include 'conexion.php'; // incluir el archivo de conexión a la base de datos
+    include 'header.php'; // incluir el archivo de cabecera
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scrapyard</title>
-</head>
+    // obtengo los productos desde la base de datos
+    $sql = "SELECT * FROM productos";
+    $result = $conn->query($sql);
 
-<body>
-    <h1>UNCLE JOE'S SCRAPYARD</h1>
-    <!-- boton al login -->
-    <a href="login.php">identificarte</a>
+    if ($result->num_rows > 0) {
+        // Mostrar los productos
+        echo "<section id='productos'>";
+        while ($row = $result->fetch_assoc()) {
+            echo "<article>";
+            echo "<h2>" . $row['nombre'] . "</h2>";
+            echo "<p>Precio: $" . $row['precio'] . "</p>";
+            echo "<p>Descripción: $" . $row['descripcion'] . "</p>";
+            echo "</article>";
+        }
+        echo "</section>";
+    } else {
+        echo "No se encontraron productos.";
+    }
 
-
-</body>
-
-</html>
+    include 'footer.php'; // Incluir el archivo de pie de página
+?>

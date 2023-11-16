@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2023 a las 13:08:09
+-- Tiempo de generación: 16-11-2023 a las 14:11:28
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -55,7 +55,8 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `stock`, `imagen`, `precio`, `rareza`) VALUES
-(1, 'Kut Cobain\'s Remington Model 11-48', 'The Remington Model 11-48 is a semi-automatic shotgun manufactured by Remington Arms as the first of its \"new generation\" semi-automatics produced after World War II. This particular model was played by the famous American musician who was the co-founder, lead vocalist, guitarist and primary songwriter of the rock band Nirvana.', 1, 'https://assets1.cbsnewsstatic.com/hub/i/r/2016/03/17/9997abcb-aa57-4c19-aa41-00f170a5b08a/thumbnail/620x1102/11cdc6d97fab2253be113b7ff1702c9e/cobain8.jpg?v=c81a9d6c51e6280f2f4f876031d7d9bc', 99999999, 'Emblematico');
+(1, 'Kut Cobain\'s Remington Model 11-48', 'The Remington Model 11-48 is a semi-automatic shotgun manufactured by Remington Arms as the first of its \"new generation\" semi-automatics produced after World War II. This particular model was played by the famous American musician who was the co-founder, lead vocalist, guitarist and primary songwriter of the rock band Nirvana.', 1, 'https://assets1.cbsnewsstatic.com/hub/i/r/2016/03/17/9997abcb-aa57-4c19-aa41-00f170a5b08a/thumbnail/620x1102/11cdc6d97fab2253be113b7ff1702c9e/cobain8.jpg?v=c81a9d6c51e6280f2f4f876031d7d9bc', 9999999, 'Iconico'),
+(2, 'Matt Delgado\'s crack pipe', '', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWIpGv_bX3zFQwMNokU5OgF4k8rfXfgmeuWxu9Os7-0SYna7O9woKHeVnnsMU50JWDcL8&usqp=CAU', 9999999, 'Iconico');
 
 -- --------------------------------------------------------
 
@@ -67,7 +68,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
-  `role` varchar(100) NOT NULL
+  `role` varchar(100) NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -75,8 +76,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
-(1, 'root', 'root', 'administrador'),
-(2, 'user', 'user', 'usuario');
+(1, 'root', 'root', 'admin'),
+(2, 'user', 'user', 'user'),
+(9, 'luis', 'luis', 'user'),
+(10, 'luis', 'luis', 'user');
 
 --
 -- Índices para tablas volcadas
@@ -116,13 +119,13 @@ ALTER TABLE `pedidos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Restricciones para tablas volcadas
