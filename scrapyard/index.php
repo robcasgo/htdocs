@@ -12,6 +12,9 @@
         while ($row = $result->fetch_assoc()) {
             echo "<article>";
             echo "<h2>" . $row['nombre'] . "</h2>";
+            echo "<img src='";
+                echo $row['imagen'];
+                echo "' border='0' width='100' height='100'>";
             echo "<p>Precio: $" . $row['precio'] . "</p>";
             echo "<p>Descripción: $" . $row['descripcion'] . "</p>";
             echo "</article>";
@@ -21,5 +24,5 @@
         echo "No se encontraron productos.";
     }
 
-    include 'footer.php'; // Incluir el archivo de pie de página
+    include 'footer.php'; // incluir el archivo de pie de página
 ?>
