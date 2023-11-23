@@ -10,7 +10,8 @@
 <body>
 
     <?php
-    include("conexion.php");
+    include 'conexion.php'; // Incluir el archivo de conexión a la base de datos
+    include 'header.php'; // Incluir el archivo de cabecera
 
     echo "<h1>Página de usuario</h1>";
     $sql = "select * from users";
