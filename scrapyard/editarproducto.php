@@ -1,17 +1,17 @@
 <?php
-include 'conexion.php'; // Incluir el archivo de conexión a la base de datos
-include 'header.php'; // Incluir el archivo de cabecera
+include 'conexion.php'; // incluyo el archivo de conexión a la base de datos
+include 'header.php'; // incluyo el archivo de cabecera
 
-// Verificar si se proporciona un ID válido en la URL
+// verifico si se proporciona un ID válido en la URL
 if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     $id_producto = $_GET['id'];
 
-    // Consultar la base de datos para obtener la información del producto
+    // consulto la base de datos para obtener la información del producto
     $sql = "SELECT * FROM productos WHERE id = $id_producto";
     $result = $conn->query($sql);
 
     if ($result->num_rows == 1) {
-        // Obtener los datos del producto
+        // obtengo los datos del producto
         $row = $result->fetch_assoc();
         $nombre = $row['nombre'];
         $descripcion = $row['descripcion'];
@@ -20,7 +20,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $precio = $row['precio'];
         $rareza = $row['rareza'];
 
-        // Mostrar un formulario con la información actual del producto
+        // muestro un formulario con la información actual del producto
         echo "<h2>Editar Producto</h2>";
         echo "<form method='post' action='actualizarproducto.php'>";
         echo "<input type='hidden' name='id' value='$id_producto'>";
@@ -45,5 +45,5 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     echo "ID de producto no válido.";
 }
 
-include 'footer.php'; // Incluir el archivo de pie de página
+include 'footer.php'; // incluyo el archivo de pie de página
 ?>
