@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
         echo "<td>" . $row['precio'] . "</td>";
         echo "<td>" . $row['rareza'] . "</td>";
         // editar/eliminar
-        echo "<td><a href='editar_producto.php?id=" . $row['id'] . "'>Editar</a> | <a href='admin.php?eliminar=" . $row['id'] . "'>Eliminar</a></td>";
+        echo "<td><a href='editarproducto.php?id=" . $row['id'] . "'>Editar</a> | <a href='admin.php?eliminar=" . $row['id'] . "'>Eliminar</a></td>";
         echo "</tr>";
     }
     echo "</table>";
