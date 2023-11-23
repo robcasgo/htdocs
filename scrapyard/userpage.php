@@ -10,21 +10,21 @@
 <body>
 
     <?php
-    include 'conexion.php'; // Incluir el archivo de conexión a la base de datos
-    include 'header.php'; // Incluir el archivo de cabecera
+include 'conexion.php'; // Incluir el archivo de conexión a la base de datos
+include 'header.php'; // Incluir el archivo de cabecera
 
-    echo "<h1>Página de usuario</h1>";
-    $sql = "select * from users";
-    // Ejecutamos y recogemos el resultado
-    $result = $conn->query($sql);
+echo "<h1>Página de usuario</h1>";
+$sql = "select * from users";
+// Ejecutamos y recogemos el resultado
+$result = $conn->query($sql);
 
-    while ($row = $result->fetch_assoc()) {
-        echo $row['username'];
-        echo $row['password'];
-        echo $row['role'];
-    }
+while ($row = $result->fetch_assoc()) {
+    echo $row['username'];
+    echo $row['password'];
+    echo $row['role'];
+}
 
-    ?>
+?>
 
 
 </body>

@@ -8,8 +8,8 @@
 </head>
 
 <body>
-    <!-- 
-    https://code.tutsplus.com/es/create-a-php-login-form--cms-33261t 
+    <!--
+    https://code.tutsplus.com/es/create-a-php-login-form--cms-33261t
     https://parzibyte.me/blog/2019/01/22/ejemplo-simple-login-php/
     -->
     <h1>INICIA SESION</h1>

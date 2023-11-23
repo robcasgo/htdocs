@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-include("conexion.php");
+include "conexion.php";
 
 $username = $_POST['username'];
 $password = $_POST['password'];
 
 //se valida si se ha enviado información, con la función isset()
 if (!isset($username, $password)) {
-    
+
     // si no hay datos muestra error y re direccionar
     header('Location: login.php');
 }
@@ -29,7 +29,7 @@ if ($row["role"] == "admin") {
 } else {
     //comprobamos que sean iguales las contraseñas
     if ($row["password"] != $password) {
-        header("Location: login.php");        
+        header("Location: login.php");
     } else {
         header("Location: userpage.php");
     }
@@ -37,4 +37,3 @@ if ($row["role"] == "admin") {
 
 //cierro la conexions
 $conn->close();
-?>
