@@ -6,7 +6,7 @@ $conn = mysqli_connect('localhost', 'root', '', 'scrapyard');
 if (!$conn) {
     // Si la conexión falla, mostramos un mensaje de error
     echo '<div class="error">Connection failed: ' . mysqli_connect_error() . '</div>';
-} else {
-    // Si la conexión es exitosa, mostramos un mensaje de éxito
-    echo '<div class="success">Connected successfully</div>';
+    die(); // Detenemos la ejecución del script en caso de error de conexión
 }
+
+// Si la conexión es exitosa, no es necesario mostrar un mensaje aquí

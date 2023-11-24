@@ -15,8 +15,10 @@
             <ul>
                 <li><a href="index.php">Inicio</a></li>
                 <?php
-// Iniciar la sesión
-session_start();
+// Iniciar la sesión si no existe
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Verificar si la clave 'rol' existe en la sesión antes de acceder a ella
 $rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
