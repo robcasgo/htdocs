@@ -2,7 +2,15 @@
 include 'conexion.php';
 include 'header.php';
 
+session_start();
+
 echo "<h1>Página de administración</h1>";
+
+// Verificar si hay un usuario autenticado en la sesión
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login.php"); // Redirigir a la página de inicio de sesión si no hay usuario autenticado
+    exit();
+}
 
 // Mostrar la lista de productos
 $sql = "SELECT * FROM productos";

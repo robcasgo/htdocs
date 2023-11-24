@@ -8,10 +8,7 @@
 </head>
 
 <body>
-    <!--
-    https://code.tutsplus.com/es/create-a-php-login-form--cms-33261t
-    https://parzibyte.me/blog/2019/01/22/ejemplo-simple-login-php/
-    -->
+    <!-- formulario inicio de sesion -->
     <h1>INICIA SESION</h1>
     <form action="validarlogin.php" method="post">
         <input name="username" type="text" placeholder="Usuario">
