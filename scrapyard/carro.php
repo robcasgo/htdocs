@@ -74,6 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (isset($_POST['idProducto']) && isset($_POST['cantidad'])) {
                     agregarAlCarrito($_POST['idProducto'], $_POST['cantidad']);
                 }
+                // Redirigir de nuevo a index.php después de agregar al carrito
+                header("Location: index.php");
+                exit(); // Asegurar que el script se detenga después de la redirección
                 break;
             case 'visualizar':
                 visualizarCarrito();

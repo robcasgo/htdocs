@@ -2,8 +2,6 @@
 include 'conexion.php';
 include 'header.php';
 
-session_start();
-
 echo "<h1>Página de administración</h1>";
 
 // Verificar si hay un usuario autenticado en la sesión

@@ -22,10 +22,12 @@ $row = mysqli_fetch_assoc($result);
 if ($row["role"] == "admin" && $row["password"] == $password) {
     // Guardar el nombre de usuario en la sesión
     $_SESSION['usuario'] = $username;
+    $_SESSION['rol'] = 'admin';
     header("Location: adminpage.php");
 } elseif ($row["password"] == $password) {
     // Guardar el nombre de usuario en la sesión
     $_SESSION['usuario'] = $username;
+    $_SESSION['rol'] = 'user';
     header("Location: userpage.php");
 } else {
     // Si las credenciales no son válidas, redirigir al formulario de inicio de sesión con un mensaje de error

@@ -14,7 +14,27 @@
         <nav>
             <ul>
                 <li><a href="index.php">Inicio</a></li>
-                <li><a href="login.php">Identificate</a></li>
+                <?php
+// Iniciar la sesión
+session_start();
+
+// Verificar si la clave 'rol' existe en la sesión antes de acceder a ella
+$rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : null;
+
+// Verificar si el usuario está logueado y tiene un rol asignado
+if (isset($_SESSION['usuario']) && isset($rol)) {
+    // Mostrar enlace según el rol del usuario
+    if ($rol == 'admin') {
+        echo '<li><a href="adminpage.php">Página de Administrador</a></li>';
+    } else {
+        echo '<li><a href="userpage.php">Página de Usuario</a></li>';
+    }
+    // Agregar enlace para cerrar sesión
+    echo '<li><a href="cerrarsesion.php">Cerrar Sesión</a></li>';
+} else {
+    echo '<li><a href="login.php">Identifícate</a></li>';
+}
+?>
             </ul>
         </nav>
     </header>
