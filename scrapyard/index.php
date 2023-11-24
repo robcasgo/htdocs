@@ -19,7 +19,7 @@ if ($result->num_rows > 0) {
         // Botón para agregar al carrito
         echo "<form action='carro.php' method='post'>";
         echo "<input type='hidden' name='accion' value='agregar'>";
-        echo "<input type='hidden' name='idProducto' value='" . $row['id'] . "'>"; // Puedes usar el ID del producto aquí
+        echo "<input type='hidden' name='idproducto' value='" . $row['id'] . "'>"; // Puedes usar el ID del producto aquí
         echo "<input type='number' name='cantidad' value='1' min='1'>";
         echo "<input type='submit' value='Añadir al Carrito'>";
         echo "</form>";
