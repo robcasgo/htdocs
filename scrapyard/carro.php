@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['usuario'])) {
@@ -8,20 +10,20 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 // Función para añadir un producto al carrito
-function agregarAlCarrito($idProducto, $cantidad)
+function agregarAlCarrito($idproducto, $cantidad)
 {
     if (!isset($_SESSION['carrito'])) {
         $_SESSION['carrito'] = array();
     }
 
     // Verificar si el producto ya está en el carrito
-    if (isset($_SESSION['carrito'][$idProducto])) {
-        $_SESSION['carrito'][$idProducto] += $cantidad; // Incrementar la cantidad si el producto ya está en el carrito
+    if (isset($_SESSION['carrito'][$idproducto])) {
+        $_SESSION['carrito'][$idproducto] += $cantidad; // Incrementar la cantidad si el producto ya está en el carrito
     } else {
         // Añadir el producto al carrito con verificación de stock
         include "conexion.php";
 
-        $sqlStock = "SELECT stock FROM productos WHERE idProducto = $idProducto";
+        $sqlStock = "SELECT stock FROM productos WHERE idproducto = $idproducto";
         $resultStock = mysqli_query($conn, $sqlStock);
 
         if ($resultStock && mysqli_num_rows($resultStock) > 0) {
@@ -30,7 +32,9 @@ function agregarAlCarrito($idProducto, $cantidad)
 
             // Verificar el stock antes de agregar al carrito
             if ($cantidad <= $stockDisponible) {
-                $_SESSION['carrito'][$idProducto] = $cantidad;
+                $_SESSION['carrito'][$idproducto] = $cantidad;
+                // Actualiza la variable de sesión después de modificar el carrito
+                $_SESSION['carrito'] = $_SESSION['carrito'];
                 echo "Producto agregado al carrito.";
             } else {
                 echo "No hay suficiente stock disponible.";
@@ -47,7 +51,7 @@ function agregarAlCarrito($idProducto, $cantidad)
 // Función para visualizar el carrito
 function visualizarCarrito()
 {
-    if (!isset($_SESSION['carrito']) || empty($_SESSION['carrito'])) {
+    if (!isset($_SESSION) || empty($_SESSION['carrito'])) {
         echo "El carrito está vacío.";
         return;
     }

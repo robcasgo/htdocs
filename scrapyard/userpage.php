@@ -1,6 +1,7 @@
 <?php
 include 'conexion.php'; // Incluir el archivo de conexión a la base de datos
 include 'header.php'; // Incluir el archivo de cabecera
+//include 'carro.php'; // Incluir el archivo de carro de compra
 
 echo "<h1>Página de usuario</h1>";
 
@@ -29,7 +30,6 @@ function visualizarCarrito()
         echo "<td><a href='userpage.php?accion=eliminar&idproducto=$idproducto'>Eliminar</a></td>";
         echo "</tr>";
     }
-
     echo "</table>";
     echo "<br>";
     echo "<form method='post' action='userpage.php'>";
