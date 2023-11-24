@@ -40,8 +40,22 @@ echo "<h2>Añadir/Editar Producto</h2>";
 
 $nombre = $descripcion = $stock = $imagen = $precio = $rareza = "";
 
-// Procesar formulario de edición o adición
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Me llega un id y quiero precargar el formulario para editar
+if (isset($_REQUEST['editar'])) {
+    $idProducto = $_REQUEST['editar'];
+
+    // Buscar en la base de datos la informacino del producto
+
+    // Cargar los valores en las variables
+    $nombre = "Juan";
+    $descripcion = "dscriup";
+    $stock = 3;
+    $imagen = "a.png";
+    $precio = 30.2;
+    $rareza = 1;
+
+// Ya he cargado el formulario con los datos a editar y me lo vuelven a enviar
+} elseif (isset($_REQUEST['editarDatos'])) {
     $nombre = $_POST['nombre'];
     $descripcion = $_POST['descripcion'];
     $stock = (int) $_POST['stock'];
@@ -49,35 +63,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $precio = (float) $_POST['precio'];
     $rareza = $_POST['rareza'];
 
-    if (isset($_GET['editar'])) {
-        // Si se está editando un producto
-        $id_editar = (int) $_GET['editar'];
+    // Si se está editando un producto
+    $id_editar = (int) $_POST['id_editar'];
 
-        $sql_actualizar = "UPDATE productos SET nombre='$nombre', descripcion='$descripcion', stock=$stock, imagen='$imagen', precio=$precio, rareza='$rareza' WHERE id=$id_editar";
+    $sql_actualizar = "UPDATE productos SET nombre='$nombre', descripcion='$descripcion', stock=$stock, imagen='$imagen', precio=$precio, rareza='$rareza' WHERE id=$id_editar";
 
-        $resultado_actualizar = $conn->query($sql_actualizar);
+    $resultado_actualizar = $conn->query($sql_actualizar);
 
-        if (!$resultado_actualizar) {
-            echo "Error al actualizar el producto: " . $conn->error;
-        } else {
-            // Redirigir a la página de administración después de la actualización
-            header("Location: adminpage.php");
-            exit();
-        }
+    if (!$resultado_actualizar) {
+        echo "Error al actualizar el producto: " . $conn->error;
     } else {
-        // Si se está añadiendo un nuevo producto
-        $sql_insertar = "INSERT INTO productos (nombre, descripcion, stock, imagen, precio, rareza) VALUES ('$nombre', '$descripcion', $stock, '$imagen', $precio, '$rareza')";
-
-        $resultado_insertar = $conn->query($sql_insertar);
-
-        if (!$resultado_insertar) {
-            echo "Error al insertar el nuevo producto: " . $conn->error;
-        } else {
-            // Redirigir a la página de administración después de la inserción
-            header("Location: adminpage.php");
-            exit();
-        }
+        // Redirigir a la página de administración después de la actualización
+        header("Location: adminpage.php");
+        exit();
     }
+
+// Me envian un producto para añadir
+} elseif (isset($_REQUEST['addDatos'])) {
+
+    $nombre = $_POST['nombre'];
+    $descripcion = $_POST['descripcion'];
+    $stock = (int) $_POST['stock'];
+    $imagen = $_POST['imagen'];
+    $precio = (float) $_POST['precio'];
+    $rareza = $_POST['rareza'];
+
+    // Si se está añadiendo un nuevo producto
+    $sql_insertar = "INSERT INTO productos (nombre, descripcion, stock, imagen, precio, rareza) VALUES ('$nombre', '$descripcion', $stock, '$imagen', $precio, '$rareza')";
+
+    $resultado_insertar = $conn->query($sql_insertar);
+
+    if (!$resultado_insertar) {
+        echo "Error al insertar el nuevo producto: " . $conn->error;
+    } else {
+        // Redirigir a la página de administración después de la inserción
+        header("Location: adminpage.php");
+        exit();
+    }
+
 }
 
 // Formulario para añadir o editar productos
@@ -97,9 +120,10 @@ echo "<input type='text' name='rareza' value='$rareza' required><br>";
 
 if (isset($_GET['editar'])) {
     // Si se está editando, agregar un campo oculto con el ID del producto
-    echo "<input type='hidden' name='id_editar' value='" . $_GET['editar'] . "'>";
+    echo "<input type='hidden' name='editarDatos' value='" . $_GET['editar'] . "'>";
     echo "<input type='submit' value='Actualizar'>";
 } else {
+    echo "<input type='hidden' name='addDatos' value='1'>";
     echo "<input type='submit' value='Añadir'>";
 }
 
