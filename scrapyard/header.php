@@ -15,7 +15,6 @@
         <nav>
             <ul>
                 <li><a href="index.php">Inicio</a></li>
-                <li><a href="carro.php">Carro</a></li>
                 <li><a href="login.php">Identificate</a></li>
             </ul>
         </nav>
