@@ -8,6 +8,7 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 // Función para añadir un producto al carrito
+
 function agregarAlCarrito($idProducto, $cantidad)
 {
     if (!isset($_SESSION['carrito'])) {
@@ -18,7 +19,29 @@ function agregarAlCarrito($idProducto, $cantidad)
     if (isset($_SESSION['carrito'][$idProducto])) {
         $_SESSION['carrito'][$idProducto] += $cantidad; // Incrementar la cantidad si el producto ya está en el carrito
     } else {
-        $_SESSION['carrito'][$idProducto] = $cantidad; // Añadir el producto al carrito
+        // Añadir el producto al carrito con verificación de stock
+        include "conexion.php";
+
+        $sqlStock = "SELECT stock FROM productos WHERE idProducto = $idProducto";
+        $resultStock = mysqli_query($conn, $sqlStock);
+
+        if ($resultStock && mysqli_num_rows($resultStock) > 0) {
+            $rowStock = mysqli_fetch_assoc($resultStock);
+            $stockDisponible = $rowStock['stock'];
+
+            // Verificar el stock antes de agregar al carrito
+            if ($cantidad <= $stockDisponible) {
+                $_SESSION['carrito'][$idProducto] = $cantidad;
+                echo "Producto agregado al carrito.";
+            } else {
+                echo "No hay suficiente stock disponible.";
+            }
+        } else {
+            echo "No se pudo obtener la información de stock.";
+        }
+
+        // Cerrar la conexión a la base de datos
+        mysqli_close($conn);
     }
 }
 
@@ -34,9 +57,9 @@ function visualizarCarrito()
     echo "<table border='1'>";
     echo "<tr><th>ID Producto</th><th>Cantidad</th></tr>";
 
-    foreach ($_SESSION['carrito'] as $idProducto => $cantidad) {
+    foreach ($_SESSION['carrito'] as $idproducto => $cantidad) {
         echo "<tr>";
-        echo "<td>$idProducto</td>";
+        echo "<td>$idproducto</td>";
         echo "<td>$cantidad</td>";
         echo "</tr>";
     }
@@ -71,8 +94,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['accion'])) {
         switch ($_POST['accion']) {
             case 'agregar':
-                if (isset($_POST['idProducto']) && isset($_POST['cantidad'])) {
-                    agregarAlCarrito($_POST['idProducto'], $_POST['cantidad']);
+                if (isset($_POST['idproducto']) && isset($_POST['cantidad'])) {
+                    agregarAlCarrito($_POST['idproducto'], $_POST['cantidad']);
                 }
                 // Redirigir de nuevo a index.php después de agregar al carrito
                 header("Location: index.php");
