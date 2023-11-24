@@ -18,6 +18,9 @@
         <input type="submit" value="Iniciar sesión">
     </form>
     <a href="registro.php">No tienes usuario?</a>
+    </br>
+    <a href="index.php">Volver al inicio</a>
+
 </body>
 
 </html>

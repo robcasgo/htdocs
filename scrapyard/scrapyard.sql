@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-11-2023 a las 14:11:28
+-- Tiempo de generación: 24-11-2023 a las 14:02:17
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -24,14 +24,29 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `detalles_pedido`
+--
+
+CREATE TABLE `detalles_pedido` (
+  `id` int(11) NOT NULL,
+  `idpedido` int(11) DEFAULT NULL,
+  `idproducto` int(11) DEFAULT NULL,
+  `cantidad` int(11) DEFAULT NULL,
+  `precioUnitario` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `pedidos`
 --
 
 CREATE TABLE `pedidos` (
-  `id` int(1) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_producto` int(11) NOT NULL,
-  `fecha` date NOT NULL
+  `id` int(11) NOT NULL,
+  `idusuario` int(11) DEFAULT NULL,
+  `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
+  `estado` varchar(255) DEFAULT 'Pendiente',
+  `total` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -55,8 +70,10 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `stock`, `imagen`, `precio`, `rareza`) VALUES
-(1, 'Kut Cobain\'s Remington Model 11-48', 'The Remington Model 11-48 is a semi-automatic shotgun manufactured by Remington Arms as the first of its \"new generation\" semi-automatics produced after World War II. This particular model was played by the famous American musician who was the co-founder, lead vocalist, guitarist and primary songwriter of the rock band Nirvana.', 1, 'https://assets1.cbsnewsstatic.com/hub/i/r/2016/03/17/9997abcb-aa57-4c19-aa41-00f170a5b08a/thumbnail/620x1102/11cdc6d97fab2253be113b7ff1702c9e/cobain8.jpg?v=c81a9d6c51e6280f2f4f876031d7d9bc', 9999999, 'Iconico'),
-(2, 'Matt Delgado\'s crack pipe', '', 1, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWIpGv_bX3zFQwMNokU5OgF4k8rfXfgmeuWxu9Os7-0SYna7O9woKHeVnnsMU50JWDcL8&usqp=CAU', 9999999, 'Iconico');
+(4, 'a', 'a', 12, 'https://hafnia.es/wp-content/uploads/E2410.jpg', 12, 'a'),
+(5, 'b', 'b', 23, 'https://ih1.redbubble.net/image.1657667283.0646/flat,750x,075,f-pad,750x1000,f8f8f8.jpg', 32323, 'b'),
+(6, 'c', 'c', 12, 'https://pngimg.com/d/letter_c_PNG5.png', 12, 'c'),
+(7, 'd', 'd', 65, 'https://cdn-icons-png.flaticon.com/512/6819/6819227.png', 7, 'd');
 
 -- --------------------------------------------------------
 
@@ -76,7 +93,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
-(1, 'root', 'root', 'admin'),
+(1, 'admin', 'admin', 'admin'),
 (2, 'user', 'user', 'user'),
 (9, 'luis', 'luis', 'user'),
 (10, 'luis', 'luis', 'user');
@@ -86,12 +103,19 @@ INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 --
 
 --
+-- Indices de la tabla `detalles_pedido`
+--
+ALTER TABLE `detalles_pedido`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idPedido` (`idpedido`),
+  ADD KEY `idProducto` (`idproducto`);
+
+--
 -- Indices de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario_fk` (`id_usuario`),
-  ADD KEY `id_producto_fk` (`id_producto`);
+  ADD KEY `idusuario` (`idusuario`);
 
 --
 -- Indices de la tabla `productos`
@@ -110,16 +134,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `detalles_pedido`
+--
+ALTER TABLE `detalles_pedido`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(1) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `users`
@@ -132,11 +162,17 @@ ALTER TABLE `users`
 --
 
 --
+-- Filtros para la tabla `detalles_pedido`
+--
+ALTER TABLE `detalles_pedido`
+  ADD CONSTRAINT `detalles_pedido_ibfk_1` FOREIGN KEY (`idPedido`) REFERENCES `pedidos` (`id`),
+  ADD CONSTRAINT `detalles_pedido_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`id`);
+
+--
 -- Filtros para la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD CONSTRAINT `id_producto_fk` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`),
-  ADD CONSTRAINT `id_usuario_fk` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

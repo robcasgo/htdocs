@@ -5,8 +5,11 @@ include 'header.php';
 echo "<h1>Página de administración</h1>";
 
 // Verificar si hay un usuario autenticado en la sesión
-if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php"); // Redirigir a la página de inicio de sesión si no hay usuario autenticado
+if (!isset($_SESSION['rol'])) {
+    header("Location: login.php"); // Redirigir a la página de login si no esta identifiado
+    exit();
+} elseif ($_SESSION['rol'] != 'admin') {
+    header("Location: userpage.php"); // Redirigir a la página de usuario si no es administrador
     exit();
 }
 
@@ -41,18 +44,26 @@ echo "<h2>Añadir/Editar Producto</h2>";
 $nombre = $descripcion = $stock = $imagen = $precio = $rareza = "";
 
 // Me llega un id y quiero precargar el formulario para editar
-if (isset($_REQUEST['editar'])) {
-    $idProducto = $_REQUEST['editar'];
+if (isset($_GET['editar'])) {
+    $idProducto = $_GET['editar'];
 
-    // Buscar en la base de datos la informacino del producto
+    // Buscar en la base de datos la información del producto
+    $stmt = $conn->prepare("SELECT nombre, descripcion, stock, imagen, precio, rareza FROM productos WHERE id = ?");
+    $stmt->bind_param("i", $idProducto);
+    $stmt->execute();
+    $stmt->bind_result($nombre, $descripcion, $stock, $imagen, $precio, $rareza);
 
     // Cargar los valores en las variables
-    $nombre = "Juan";
-    $descripcion = "dscriup";
-    $stock = 3;
-    $imagen = "a.png";
-    $precio = 30.2;
-    $rareza = 1;
+    if ($stmt->fetch()) {
+        // Los valores se cargan automáticamente desde la base de datos
+    } else {
+        // Manejar el caso en el que no se encuentra el producto con el ID dado
+        echo "No se encontró el producto con el ID especificado.";
+        exit();
+    }
+
+    // Cerrar la declaración
+    $stmt->close();
 
 // Ya he cargado el formulario con los datos a editar y me lo vuelven a enviar
 } elseif (isset($_REQUEST['editarDatos'])) {

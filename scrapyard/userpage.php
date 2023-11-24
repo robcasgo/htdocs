@@ -4,9 +4,9 @@ include 'header.php'; // Incluir el archivo de cabecera
 
 echo "<h1>Página de usuario</h1>";
 
-// Verificar si el usuario está autenticado
-if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
+// Verificar si hay un usuario autenticado en la sesión
+if (!isset($_SESSION['rol'])) {
+    header("Location: login.php"); // Redirigir a la página de login si no esta identifiado
     exit();
 }
 

@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 // Función para añadir un producto al carrito
-
 function agregarAlCarrito($idProducto, $cantidad)
 {
     if (!isset($_SESSION['carrito'])) {
