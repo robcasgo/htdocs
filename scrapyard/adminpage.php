@@ -20,6 +20,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Imprimir la tabla con la lista de productos
     echo "<table border='1'>";
+    echo "<tr><th colspan='7'>TABLA PRODUCTOS</th></tr>";
     echo "<tr><th>nombre</th><th>descripcion</th><th>stock</th><th>imagen</th><th>precio</th><th>rareza</th><th>Acciones</th></tr>";
 
     while ($row = $result->fetch_assoc()) {
@@ -34,7 +35,7 @@ if ($result->num_rows > 0) {
         echo "</tr>";
     }
 
-    echo "</table>";
+    echo "</>";
 } else {
     echo "No se encontraron productos.";
 }
@@ -75,9 +76,9 @@ if (isset($_GET['editar'])) {
     $rareza = $_POST['rareza'];
 
     // Si se está editando un producto
-    $id_editar = (int) $_POST['id_editar'];
+    $id_editar = (int) $_POST['editarDatos'];
 
-    $sql_actualizar = "UPDATE productos SET nombre='$nombre', descripcion='$descripcion', stock=$stock, imagen='$imagen', precio=$precio, rareza='$rareza' WHERE id=$id_editar";
+    $sql_actualizar = "update productos set nombre='$nombre', descripcion='$descripcion', stock=$stock, imagen='$imagen', precio=$precio, rareza='$rareza' where id=$id_editar";
 
     $resultado_actualizar = $conn->query($sql_actualizar);
 
