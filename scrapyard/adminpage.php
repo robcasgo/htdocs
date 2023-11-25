@@ -135,7 +135,6 @@ if (isset($_GET['editar'])) {
     echo "<input type='hidden' name='editarDatos' value='" . $_GET['editar'] . "'>";
     echo "<input type='submit' value='Actualizar'>";
 } else {
-
     echo "<input type='hidden' name='addDatos' value='1'>";
     echo "<input type='submit' value='Añadir'>";
 }
