@@ -66,7 +66,7 @@ if (isset($_GET['editar'])) {
     $stmt->close();
 
 // Ya he cargado el formulario con los datos a editar y me lo vuelven a enviar
-} elseif (isset($_REQUEST['editarDatos'])) {
+} elseif (isset($_POST['editarDatos'])) {
     $nombre = $_POST['nombre'];
     $descripcion = $_POST['descripcion'];
     $stock = (int) $_POST['stock'];

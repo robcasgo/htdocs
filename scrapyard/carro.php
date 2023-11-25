@@ -19,33 +19,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $_SESSION['carrito'][$idProducto] = $cantidad;
         }
-        // Realizar la acción correspondiente
+
+        // Accion de borrar un producto del carrito
     } elseif ($_POST['accion'] === 'borrar' && isset($_POST['idProducto'])) {
+        $idProductoBorrar = $_POST['idProducto'];
+
+        // Verificar si el producto está en el carrito
+        if (isset($_SESSION['carrito'][$idProductoBorrar])) {
+            // Reducir la cantidad del producto en 1
+            $_SESSION['carrito'][$idProductoBorrar]--;
+
+            // Si la cantidad es 0, borrar el producto del carrito
+            if ($_SESSION['carrito'][$idProductoBorrar] <= 0) {
+                unset($_SESSION['carrito'][$idProductoBorrar]);
+            }
+        }
+
+        // Accion de eliminar el producto totalmente del carrito
+    } elseif ($_POST['accion'] === 'eliminar' && isset($_POST['idProducto'])) {
         $idProductoEliminar = $_POST['idProducto'];
 
         // Verificar si el producto está en el carrito
         if (isset($_SESSION['carrito'][$idProductoEliminar])) {
-            // Reducir la cantidad del producto en 1
-            $_SESSION['carrito'][$idProductoEliminar]--;
-
-            // Si la cantidad es 0, borrar el producto del carrito
-            if ($_SESSION['carrito'][$idProductoEliminar] <= 0) {
-                unset($_SESSION['carrito'][$idProductoEliminar]);
-            }
+            // Eliminar el producto del carrito
+            unset($_SESSION['carrito'][$idProductoEliminar]);
         }
+
+        // Accion de añadir un producto al carrito
     } elseif ($_POST['accion'] === 'añadir' && isset($_POST['idProducto'])) {
-        $idProductoEliminar = $_POST['idProducto'];
+        $idProductoAñadir = $_POST['idProducto'];
 
         // Verificar si el producto está en el carrito
-        if (isset($_SESSION['carrito'][$idProductoEliminar])) {
-            // Reducir la cantidad del producto en 1
-            $_SESSION['carrito'][$idProductoEliminar]++;
-
-            // Si la cantidad es 0, borrar el producto del carrito
-            if ($_SESSION['carrito'][$idProductoEliminar] <= 0) {
-                unset($_SESSION['carrito'][$idProductoEliminar]);
-            }
+        if (isset($_SESSION['carrito'][$idProductoAñadir])) {
+            // Aumentar la cantidad del producto en 1
+            $_SESSION['carrito'][$idProductoAñadir]++;
         }
+
+        // Accion de vaciar el carrito
     } elseif ($_POST['accion'] === 'vaciar') {
         // Vaciar todo el carrito
         $_SESSION['carrito'] = [];

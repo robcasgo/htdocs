@@ -13,12 +13,12 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
     function obtenerInformacionProducto($conn, $idProducto)
     {
         // Realizar la consulta SQL para obtener la información del producto
-        $sql = "select nombre, precio from productos where id = $idProducto";
-        $informacionProducto = $conn->query($sql);
+        $sql_informacion = "select nombre, precio from productos where id = $idProducto";
+        $resultado_informacion = $conn->query($sql_informacion);
 
         // Verificar si la consulta fue exitosa
-        if ($informacionProducto && $informacionProducto->num_rows > 0) {
-            $row = $informacionProducto->fetch_assoc();
+        if ($resultado_informacion && $resultado_informacion->num_rows > 0) {
+            $row = $resultado_informacion->fetch_assoc();
             return $row;
         } else {
             // Producto no encontrado o vacio
@@ -39,20 +39,28 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
         echo "<td>$ " . ($productoInfo['precio'] * $cantidad) . "</td>";
         echo "</tr>";
 
-        // Borrar 1 producto del carrito
-        echo "<tr><td colspan='4'><form action='carro.php' method='post'>";
-        echo "<input type='hidden' name='accion' value='borrar'>";
-        echo "<input type='hidden' name='idProducto' value='$idProducto'>";
-        echo "<input type='hidden' name='accion' value='borrar'>";
-        echo "<input type='submit' value='Eliminar 1'>";
-        echo "</form></td></tr>";
-
         // Sumara 1 producto del carrito
         echo "<tr><td colspan='4'><form action='carro.php' method='post'>";
         echo "<input type='hidden' name='accion' value='añadir'>";
         echo "<input type='hidden' name='idProducto' value='$idProducto'>";
         echo "<input type='hidden' name='accion' value='añadir'>";
-        echo "<input type='submit' value='Añadir 1'>";
+        echo "<input type='submit' value='+'>";
+        echo "</form></td></tr>";
+
+        // Borrar 1 producto del carrito
+        echo "<tr><td colspan='4'><form action='carro.php' method='post'>";
+        echo "<input type='hidden' name='accion' value='borrar'>";
+        echo "<input type='hidden' name='idProducto' value='$idProducto'>";
+        echo "<input type='hidden' name='accion' value='borrar'>";
+        echo "<input type='submit' value='-'>";
+        echo "</form></td></tr>";
+
+        // Elimina el porducto del carrito
+        echo "<tr><td colspan='4'><form action='carro.php' method='post'>";
+        echo "<input type='hidden' name='accion' value='eliminar'>";
+        echo "<input type='hidden' name='idProducto' value='$idProducto'>";
+        echo "<input type='hidden' name='accion' value='eliminar'>";
+        echo "<input type='submit' value='Eliminar'>";
         echo "</form></td></tr>";
     }
 
