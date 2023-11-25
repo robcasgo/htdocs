@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2023 a las 17:55:20
+-- Tiempo de generación: 25-11-2023 a las 20:09:44
 -- Versión del servidor: 10.4.27-MariaDB
 -- Versión de PHP: 8.1.12
 
@@ -41,7 +41,11 @@ CREATE TABLE `detalles_pedido` (
 
 INSERT INTO `detalles_pedido` (`id`, `idpedido`, `idproducto`, `cantidad`, `precioUnitario`) VALUES
 (3, 3, 4, 13, '11.00'),
-(4, 3, 5, 3, '32.00');
+(4, 3, 5, 3, '32.00'),
+(5, 4, 4, 1, '11.00'),
+(6, 4, 5, 1, '32.00'),
+(7, 4, 6, 2, '12.00'),
+(8, 5, 4, 2, '11.00');
 
 -- --------------------------------------------------------
 
@@ -62,7 +66,9 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id`, `idusuario`, `fecha`, `estado`, `total`) VALUES
-(3, 2, '2023-11-25 16:06:51', 'Pendiente', '239.00');
+(3, 2, '2023-11-25 16:06:51', 'Pendiente', '239.00'),
+(4, 2, '2023-11-25 16:59:16', 'Pendiente', '67.00'),
+(5, 2, '2023-11-25 19:05:01', 'Pendiente', '22.00');
 
 -- --------------------------------------------------------
 
@@ -150,13 +156,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `detalles_pedido`
 --
 ALTER TABLE `detalles_pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
