@@ -6,24 +6,39 @@ echo "<h1>Página de administración</h1>";
 
 // Verificar si hay un usuario autenticado en la sesión
 if (!isset($_SESSION['rol'])) {
-    header("Location: login.php"); // Redirigir a la página de login si no esta identifiado
+    header("Location: login.php"); // Redirigir a la página de login si no está identificado
     exit();
 } elseif ($_SESSION['rol'] != 'admin') {
     header("Location: userpage.php"); // Redirigir a la página de usuario si no es administrador
     exit();
 }
 
-// Mostrar la lista de productos
-$sql = "SELECT * FROM productos";
-$result = $conn->query($sql);
+// Función para obtener el nombre de usuario
+function obtenerNombreUsuario($idUsuario)
+{
+    global $conn;
+    $sql = "SELECT username FROM users WHERE id = $idUsuario";
+    $result = $conn->query($sql);
 
-if ($result->num_rows > 0) {
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['username'];
+    } else {
+        return 'Usuario no encontrado';
+    }
+}
+
+// Mostrar la lista de productos
+$sqlProductos = "SELECT * FROM productos";
+$resultProductos = $conn->query($sqlProductos);
+
+if ($resultProductos->num_rows > 0) {
     // Imprimir la tabla con la lista de productos
     echo "<table border='1'>";
     echo "<tr><th colspan='7'>TABLA PRODUCTOS</th></tr>";
     echo "<tr><th>nombre</th><th>descripcion</th><th>stock</th><th>imagen</th><th>precio</th><th>rareza</th><th>Acciones</th></tr>";
 
-    while ($row = $result->fetch_assoc()) {
+    while ($row = $resultProductos->fetch_assoc()) {
         echo "<tr>";
         echo "<td>" . $row['nombre'] . "</td>";
         echo "<td>" . $row['descripcion'] . "</td>";
@@ -35,9 +50,59 @@ if ($result->num_rows > 0) {
         echo "</tr>";
     }
 
-    echo "</>";
+    echo "</table>";
 } else {
     echo "No se encontraron productos.";
+}
+
+// Mostrar la lista de pedidos
+$sqlPedidos = "SELECT * FROM pedidos";
+$resultPedidos = $conn->query($sqlPedidos);
+
+if ($resultPedidos->num_rows > 0) {
+    // Imprimir la tabla con la lista de pedidos
+    echo "<table border='1'>";
+    echo "<tr><th colspan='5'>TABLA PEDIDOS</th></tr>";
+    echo "<tr><th>ID Pedido</th><th>Usuario</th><th>Fecha</th><th>Estado</th><th>Total</th></tr>";
+
+    while ($rowPedido = $resultPedidos->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $rowPedido['id'] . "</td>";
+        echo "<td>" . obtenerNombreUsuario($rowPedido['idusuario']) . "</td>";
+        echo "<td>" . $rowPedido['fecha'] . "</td>";
+        echo "<td>" . $rowPedido['estado'] . "</td>";
+        echo "<td>" . $rowPedido['total'] . "</td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+} else {
+    echo "No se encontraron pedidos.";
+}
+
+// Mostrar la lista de detalles de pedidos
+$sqlDetallesPedido = "SELECT * FROM detalles_pedido";
+$resultDetallesPedido = $conn->query($sqlDetallesPedido);
+
+if ($resultDetallesPedido->num_rows > 0) {
+    // Imprimir la tabla con la lista de detalles de pedidos
+    echo "<table border='1'>";
+    echo "<tr><th colspan='5'>TABLA DETALLE PEDIDOS</th></tr>";
+    echo "<tr><th>ID Detalle</th><th>ID Pedido</th><th>ID Producto</th><th>Cantidad</th><th>Precio Unitario</th></tr>";
+
+    while ($rowDetallePedido = $resultDetallesPedido->fetch_assoc()) {
+        echo "<tr>";
+        echo "<td>" . $rowDetallePedido['id'] . "</td>";
+        echo "<td>" . $rowDetallePedido['idpedido'] . "</td>";
+        echo "<td>" . $rowDetallePedido['idproducto'] . "</td>";
+        echo "<td>" . $rowDetallePedido['cantidad'] . "</td>";
+        echo "<td>" . $rowDetallePedido['precioUnitario'] . "</td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+} else {
+    echo "No se encontraron detalles de pedidos.";
 }
 
 echo "<h2>Añadir/Editar Producto</h2>";
@@ -49,7 +114,7 @@ if (isset($_GET['editar'])) {
     $idProducto = $_GET['editar'];
 
     // Buscar en la base de datos la información del producto
-    $stmt = $conn->prepare("SELECT nombre, descripcion, stock, imagen, precio, rareza FROM productos WHERE id = ?");
+    $stmt = $conn->prepare("select nombre, descripcion, stock, imagen, precio, rareza from productos where id = ?");
     $stmt->bind_param("i", $idProducto);
     $stmt->execute();
     $stmt->bind_result($nombre, $descripcion, $stock, $imagen, $precio, $rareza);

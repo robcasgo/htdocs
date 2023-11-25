@@ -69,6 +69,11 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
 
     echo "</table>";
 
+    // Formulario para confirmar la compra
+    echo "<form action='confirmar_compra.php' method='post'>";
+    echo "<input type='submit' value='Confirmar Compra'>";
+    echo "</form>";
+
     // Agregar botones para vaciar el carrito
     echo "<form action='carro.php' method='post'>";
     echo "<input type='hidden' name='accion' value='vaciar'>";
