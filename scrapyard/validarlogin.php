@@ -1,38 +1,40 @@
 <?php
 session_start();
+include 'conexion.php'; // Incluye la conexión a la base de datos
 
-include "conexion.php";
+// Se valida si se ha enviado información con la función isset()
+if (!isset($_POST['username'], $_POST['password'])) {
+    // Si no hay datos, muestra error y redirecciona
+    header('Location: login.php');
+    exit();
+}
 
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-// Se valida si se ha enviado información con la función isset()
-if (!isset($username, $password)) {
-    // Si no hay datos, muestra error y redirecciona
-    header('Location: login.php');
-}
-
-$sql = "SELECT * FROM users WHERE username = '" . $username . "'";
-// Ejecutamos y recogemos el resultado
+$sql = "SELECT id, username, role FROM users WHERE username = '" . $username . "' AND password = '" . $password . "'";
 $result = $conn->query($sql);
-// Recorro el array
-$row = mysqli_fetch_assoc($result);
 
-// Comprobamos el rol y que las contraseñas sean iguales
-if ($row["role"] == "admin" && $row["password"] == $password) {
-    // Guardar el nombre de usuario en la sesión
-    $_SESSION['usuario'] = $username;
-    $_SESSION['rol'] = 'admin';
-    header("Location: adminpage.php");
-} elseif ($row["password"] == $password) {
-    // Guardar el nombre de usuario en la sesión
-    $_SESSION['usuario'] = $username;
-    $_SESSION['rol'] = 'user';
-    header("Location: userpage.php");
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+
+    // Almacena el user_id, nombre de usuario y rol en la sesión
+    $_SESSION['user_id'] = $row['id'];
+    $_SESSION['usuario'] = $row['username'];
+    $_SESSION['rol'] = $row['role'];
+
+    // Redirige a la página correspondiente según el rol
+    if ($_SESSION['rol'] == 'admin') {
+        header("Location: adminpage.php");
+    } else {
+        header("Location: userpage.php");
+    }
+    exit();
 } else {
     // Si las credenciales no son válidas, redirigir al formulario de inicio de sesión con un mensaje de error
     header("Location: login.php?error=1");
+    exit();
 }
 
-// Cierro la conexión
+// Cierra la conexión
 $conn->close();
