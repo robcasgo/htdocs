@@ -1,8 +1,8 @@
 <?php
 include 'conexion.php'; // incluir el archivo de conexión a la base de datos
 include 'header.php'; // incluir el archivo de cabecera
-
 ?>
+
 <section id='productos' class='card-container'>
     <?php
 // Obtengo los productos desde la base de datos
@@ -22,7 +22,7 @@ if ($result->num_rows > 0) {
         echo "<input type='hidden' name='accion' value='agregar'>";
         echo "<input type='hidden' name='idProducto' value='" . $row['id'] . "'>";
         echo "<input type='number' name='cantidad' value='1' min='1'>";
-        echo "<input type='submit' value='Añadir al Carrito'>";
+        echo "<input class='btn-add-to-cart' type='submit' value='Añadir al Carrito'>";
         echo "</form>";
 
         echo "</article>";
@@ -32,6 +32,6 @@ if ($result->num_rows > 0) {
 }
 ?>
 </section>
-<?
 
+<?
 include 'footer.php'; // incluir el archivo de pie de página

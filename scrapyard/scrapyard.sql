@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-11-2023 a las 14:02:17
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 25-11-2023 a las 17:55:20
+-- Versión del servidor: 10.4.27-MariaDB
+-- Versión de PHP: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -35,6 +35,14 @@ CREATE TABLE `detalles_pedido` (
   `precioUnitario` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `detalles_pedido`
+--
+
+INSERT INTO `detalles_pedido` (`id`, `idpedido`, `idproducto`, `cantidad`, `precioUnitario`) VALUES
+(3, 3, 4, 13, '11.00'),
+(4, 3, 5, 3, '32.00');
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +56,13 @@ CREATE TABLE `pedidos` (
   `estado` varchar(255) DEFAULT 'Pendiente',
   `total` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`id`, `idusuario`, `fecha`, `estado`, `total`) VALUES
+(3, 2, '2023-11-25 16:06:51', 'Pendiente', '239.00');
 
 -- --------------------------------------------------------
 
@@ -70,10 +85,10 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `descripcion`, `stock`, `imagen`, `precio`, `rareza`) VALUES
-(4, 'a', 'a', 12, 'https://hafnia.es/wp-content/uploads/E2410.jpg', 12, 'a'),
-(5, 'b', 'b', 23, 'https://ih1.redbubble.net/image.1657667283.0646/flat,750x,075,f-pad,750x1000,f8f8f8.jpg', 32323, 'b'),
-(6, 'c', 'c', 12, 'https://pngimg.com/d/letter_c_PNG5.png', 12, 'c'),
-(7, 'd', 'd', 65, 'https://cdn-icons-png.flaticon.com/512/6819/6819227.png', 7, 'd');
+(4, 'a', 'letra a', 12, 'https://hafnia.es/wp-content/uploads/E2410.jpg', 11, 'a'),
+(5, 'b', 'letra b', 23, 'https://ih1.redbubble.net/image.1657667283.0646/flat,750x,075,f-pad,750x1000,f8f8f8.jpg', 32, 'b'),
+(6, 'c', 'letra c', 12, 'https://pngimg.com/d/letter_c_PNG5.png', 12, 'c'),
+(7, 'd', 'letra d', 62, 'https://cdn-icons-png.flaticon.com/512/6819/6819227.png', 74, 'd');
 
 -- --------------------------------------------------------
 
@@ -94,9 +109,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`, `role`) VALUES
 (1, 'admin', 'admin', 'admin'),
-(2, 'user', 'user', 'user'),
-(9, 'luis', 'luis', 'user'),
-(10, 'luis', 'luis', 'user');
+(2, 'user', 'user', 'user');
 
 --
 -- Índices para tablas volcadas
@@ -137,13 +150,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `detalles_pedido`
 --
 ALTER TABLE `detalles_pedido`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -165,8 +178,8 @@ ALTER TABLE `users`
 -- Filtros para la tabla `detalles_pedido`
 --
 ALTER TABLE `detalles_pedido`
-  ADD CONSTRAINT `detalles_pedido_ibfk_1` FOREIGN KEY (`idPedido`) REFERENCES `pedidos` (`id`),
-  ADD CONSTRAINT `detalles_pedido_ibfk_2` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`id`);
+  ADD CONSTRAINT `detalles_pedido_ibfk_1` FOREIGN KEY (`idpedido`) REFERENCES `pedidos` (`id`),
+  ADD CONSTRAINT `detalles_pedido_ibfk_2` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`id`);
 
 --
 -- Filtros para la tabla `pedidos`

@@ -8,5 +8,3 @@ if (!$conn) {
     echo '<div class="error">Connection failed: ' . mysqli_connect_error() . '</div>';
     die(); // Detenemos la ejecución del script en caso de error de conexión
 }
-
-// Si la conexión es exitosa, no es necesario mostrar un mensaje aquí
