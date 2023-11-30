@@ -19,7 +19,7 @@ if (!isset($_SESSION['carrito']) || empty($_SESSION['carrito'])) {
 
 // Inserta un nuevo pedido en la tabla 'pedidos'
 $idUsuario = $_SESSION['user_id'];
-$total = calcularPrecioTotal($conn); // Suponiendo que tienes la función 'calcularPrecioTotal' definida
+$total = calcularPrecioTotal($conn);
 
 // Verifica si $total es numérico
 if (!is_numeric($total)) {
