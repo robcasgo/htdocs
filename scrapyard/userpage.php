@@ -45,7 +45,6 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
         echo "<td colspan='4'><form action='carro.php' method='post'>";
         echo "<input type='hidden' name='accion' value='añadir'>";
         echo "<input type='hidden' name='idProducto' value='$idProducto'>";
-        echo "<input type='hidden' name='accion' value='añadir'>";
         echo "<input type='submit' value='+'>";
         echo "</form></td>";
 
@@ -53,7 +52,6 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
         echo "<td colspan='4'><form action='carro.php' method='post'>";
         echo "<input type='hidden' name='accion' value='borrar'>";
         echo "<input type='hidden' name='idProducto' value='$idProducto'>";
-        echo "<input type='hidden' name='accion' value='borrar'>";
         echo "<input type='submit' value='-'>";
         echo "</form></td>";
 
@@ -61,7 +59,6 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
         echo "<td colspan='4'><form action='carro.php' method='post'>";
         echo "<input type='hidden' name='accion' value='eliminar'>";
         echo "<input type='hidden' name='idProducto' value='$idProducto'>";
-        echo "<input type='hidden' name='accion' value='eliminar'>";
         echo "<input type='submit' value='Eliminar'>";
         echo "</form></td>";
 
