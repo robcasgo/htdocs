@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $_SESSION['carrito'][$idProducto] = $cantidad;
         }
-
+        header('Location: index.php');
         // Accion de borrar un producto del carrito
     } elseif ($_POST['accion'] === 'borrar' && isset($_POST['idProducto'])) {
         $idProductoBorrar = $_POST['idProducto'];
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unset($_SESSION['carrito'][$idProductoBorrar]);
             }
         }
-
+        header('Location: userpage.php');
         // Accion de eliminar el producto totalmente del carrito
     } elseif ($_POST['accion'] === 'eliminar' && isset($_POST['idProducto'])) {
         $idProductoEliminar = $_POST['idProducto'];
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Eliminar el producto del carrito
             unset($_SESSION['carrito'][$idProductoEliminar]);
         }
-
+        header('Location: userpage.php');
         // Accion de añadir un producto al carrito
     } elseif ($_POST['accion'] === 'añadir' && isset($_POST['idProducto'])) {
         $idProductoAñadir = $_POST['idProducto'];
@@ -54,13 +54,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Aumentar la cantidad del producto en 1
             $_SESSION['carrito'][$idProductoAñadir]++;
         }
-
+        header('Location: userpage.php');
         // Accion de vaciar el carrito
     } elseif ($_POST['accion'] === 'vaciar') {
         // Vaciar todo el carrito
         $_SESSION['carrito'] = [];
+        header('Location: userpage.php');
     }
 }
 
-header('Location: index.php');
 exit();
