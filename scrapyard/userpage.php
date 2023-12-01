@@ -42,21 +42,21 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
         // fila de edicion
         echo "<tr>";
         // Sumara 1 producto del carrito
-        echo "<td colspan='4'><form action='carro.php' method='post'>";
+        echo "<td><form action='carro.php' method='post'>";
         echo "<input type='hidden' name='accion' value='añadir'>";
         echo "<input type='hidden' name='idProducto' value='$idProducto'>";
         echo "<input type='submit' value='+'>";
         echo "</form></td>";
 
         // Borrar 1 producto del carrito
-        echo "<td colspan='4'><form action='carro.php' method='post'>";
+        echo "<td><form action='carro.php' method='post'>";
         echo "<input type='hidden' name='accion' value='borrar'>";
         echo "<input type='hidden' name='idProducto' value='$idProducto'>";
         echo "<input type='submit' value='-'>";
         echo "</form></td>";
 
         // Elimina el porducto del carrito
-        echo "<td colspan='4'><form action='carro.php' method='post'>";
+        echo "<td colspan='2'><form action='carro.php' method='post'>";
         echo "<input type='hidden' name='accion' value='eliminar'>";
         echo "<input type='hidden' name='idProducto' value='$idProducto'>";
         echo "<input type='submit' value='Eliminar'>";
