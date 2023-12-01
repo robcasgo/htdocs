@@ -1,7 +1,7 @@
 <?php
 session_start();
-include 'header.php'; // Incluir el archivo de cabecera
-include 'conexion.php'; // Incluir la conexión a la base de datos
+include 'header.php'; // incluir cabecera
+include 'conexion.php'; // incluir la conexión a la base de datos
 
 echo "<h1>Carrito de Compras</h1>";
 
@@ -9,19 +9,19 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
     echo "<table>";
     echo "<tr><th>Producto</th><th>Cantidad</th><th>Precio Unitario</th><th>Subtotal</th></tr>";
 
-    // Función para obtener información del producto desde la base de datos
+    // función para obtener información del producto desde la base de datos
     function obtenerInformacionProducto($conn, $idProducto)
     {
-        // Realizar la consulta SQL para obtener la información del producto
+        // consulta para obtener la información del producto
         $sql_informacion = "select nombre, precio from productos where id = $idProducto";
         $resultado_informacion = $conn->query($sql_informacion);
 
-        // Verificar si la consulta fue exitosa
+        // verificar si la consulta fue exitosa
         if ($resultado_informacion && $resultado_informacion->num_rows > 0) {
             $row = $resultado_informacion->fetch_assoc();
             return $row;
         } else {
-            // Producto no encontrado o vacio
+            // producto no encontrado o vacio
             return ['nombre' => 'Producto no encontrado', 'precio' => 0.00];
         }
     }
@@ -39,29 +39,33 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
         echo "<td>$ " . ($productoInfo['precio'] * $cantidad) . "</td>";
         echo "</tr>";
 
+        // fila de edicion
+        echo "<tr>";
         // Sumara 1 producto del carrito
-        echo "<tr><td colspan='4'><form action='carro.php' method='post'>";
+        echo "<td colspan='4'><form action='carro.php' method='post'>";
         echo "<input type='hidden' name='accion' value='añadir'>";
         echo "<input type='hidden' name='idProducto' value='$idProducto'>";
         echo "<input type='hidden' name='accion' value='añadir'>";
         echo "<input type='submit' value='+'>";
-        echo "</form></td></tr>";
+        echo "</form></td>";
 
         // Borrar 1 producto del carrito
-        echo "<tr><td colspan='4'><form action='carro.php' method='post'>";
+        echo "<td colspan='4'><form action='carro.php' method='post'>";
         echo "<input type='hidden' name='accion' value='borrar'>";
         echo "<input type='hidden' name='idProducto' value='$idProducto'>";
         echo "<input type='hidden' name='accion' value='borrar'>";
         echo "<input type='submit' value='-'>";
-        echo "</form></td></tr>";
+        echo "</form></td>";
 
         // Elimina el porducto del carrito
-        echo "<tr><td colspan='4'><form action='carro.php' method='post'>";
+        echo "<td colspan='4'><form action='carro.php' method='post'>";
         echo "<input type='hidden' name='accion' value='eliminar'>";
         echo "<input type='hidden' name='idProducto' value='$idProducto'>";
         echo "<input type='hidden' name='accion' value='eliminar'>";
         echo "<input type='submit' value='Eliminar'>";
-        echo "</form></td></tr>";
+        echo "</form></td>";
+
+        echo "</tr>";
     }
 
     // Mostrar precio total

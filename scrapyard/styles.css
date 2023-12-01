@@ -21,123 +21,6 @@ body {
     line-height: 1.6;
 }
 
-/* Estilo para los encabezados */
-h1, h2, h3 {
-    color: var(--color-primary);
-}
-
-/* Estilo para la tabla */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-}
-
-th {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-}
-
-/* Estilo para los enlaces */
-a {
-    color: var(--color-primary);
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Estilo para los formularios */
-form {
-    margin-top: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 8px;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    box-sizing: border-box;
-}
-
-/* Estilo para el pie de página */
-footer {
-    margin-top: 40px;
-    padding: 15px;
-    text-align: center;
-    background-color: #333;
-    color: var(--color-white);
-}
-
-/* Estilo para la tarjeta de producto */
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
-
-.card {
-    width: 300px;
-    margin: 10px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: var(--color-white);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
-}
-
-.card:hover {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.card img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 12px;
-}
-
-.precio {
-    font-weight: bold;
-    color: var(--color-primary);
-}
-
-.descripcion {
-    margin-bottom: 12px;
-}
-
-/* Estilo para el mensaje si no hay productos */
-.no-productos {
-    font-style: italic;
-    color: #777;
-}
-
-/* Estilo para el botón añadir al carrito */
-.btn-add-to-cart {
-    background-color: var(--color-primary);
-    color: var(--color-white);
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.btn-add-to-cart:hover {
-    background-color: #0056b3;
-}
-
 /* Estilo para el encabezado y navegación */
 header {
     background-color: #333;
@@ -178,6 +61,26 @@ main {
     background-color: var(--color-white);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* Estilo para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+/* ... otras secciones ... */
 
 /* Estilo para el pie de página */
 footer {

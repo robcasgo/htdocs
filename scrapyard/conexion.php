@@ -1,10 +1,11 @@
 <?php
-// Creamos la conexión
+// creamos la conexión
 $conn = mysqli_connect('localhost', 'root', '', 'scrapyard');
 
-// Comprobamos la conexión
+// comprobamos la conexión
 if (!$conn) {
-    // Si la conexión falla, mostramos un mensaje de error
+    // si la conexión falla, mostramos un mensaje de error
     echo '<div class="error">Connection failed: ' . mysqli_connect_error() . '</div>';
-    die(); // Detenemos la ejecución del script en caso de error de conexión
+    // detenemos la ejecución del script en caso de error de conexión
+    die();
 }
