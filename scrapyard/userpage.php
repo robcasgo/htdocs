@@ -66,6 +66,7 @@ if (isset($_SESSION['carrito']) && count($_SESSION['carrito']) > 0) {
         echo "</form></td>";
 
         echo "</tr>";
+
     }
 
     // Mostrar precio total
